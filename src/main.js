@@ -32,7 +32,7 @@ import './lib/mui/css/mui.css';
 import './lib/mui/css/icons-extra.css';
 
 Vue.config.productionTip = false
-
+Vue.http.options.emulateJSON = true;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

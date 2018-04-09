@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
 		<!-- 顶部header区域 -->
-    <mt-header fixed title="首页"></mt-header>
+    <mt-header fixed title="Vue脚手架"></mt-header>
 
 		<!-- 中间路由区域 -->
 		<transition>
@@ -38,7 +38,7 @@
 
 <style scoped>
 .app-container {
-  /* padding-top: 40px; */
+  padding-top: 40px;
   padding-bottom: 50px;
   overflow-x: hidden;
 }

@@ -2,7 +2,7 @@
 <div class="new">
     <ul class="mui-table-view">
         <li class="mui-table-view-cell mui-media" v-for="(item,index) in newslist" :key="index">
-            <router-link to="">
+            <router-link :to="'/home/NewsInfo/'+item.id">
                 <img class="mui-media-object mui-pull-left" :src="item.img_url">
                 <div class="mui-media-body">
                     <h1>{{ item.title }}</h1> 
@@ -13,7 +13,6 @@
                 </div>
             </router-link>
         </li>
-        
 	</ul>
 </div>
 </template>
@@ -46,9 +45,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang='less' scoped>
-.new {
-  padding-top: 40px;
-}
 .mui-table-view {
     li{
         h1{

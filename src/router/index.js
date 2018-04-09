@@ -4,7 +4,8 @@ import home from '@/components/home'
 import member from '@/components/member'
 import search from '@/components/search'
 import shopcar from '@/components/shopcar'
-import NewList from "@/components/News/NewList";
+import NewList from "@/components/News/NewList"
+import NewsInfo from "@/components/News/NewsInfo"
 
 Vue.use(Router)
 
@@ -33,6 +34,10 @@ export default new Router({
     {
       path: '/home/NewList',
       component: NewList
+    },
+    {
+      path: '/home/NewsInfo/:id',
+      component: NewsInfo
     }
   ],
   linkActiveClass: 'mui-active' // 覆盖默认的路由高亮的类，默认的类叫做 router-link-active
