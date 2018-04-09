@@ -1,11 +1,12 @@
 <template>
-  <div id="app">
+  <div class="app-container">
 		<!-- 顶部header区域 -->
     <mt-header fixed title="首页"></mt-header>
 
 		<!-- 中间路由区域 -->
+		<transition>
     <router-view></router-view>
-
+		</transition>
 
 
 		<!-- 底部Tabbar区域 -->
@@ -33,18 +34,28 @@
 </template>
 
 <script>
-export default {
-  methods:{
-    show(){
-      console.log(123);
-      
-    }
-  }
-}
 </script>
 
 <style scoped>
-  .sctive {
-    color: red;
-  }
+.app-container {
+  /* padding-top: 40px; */
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
+
+.v-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}
 </style>
