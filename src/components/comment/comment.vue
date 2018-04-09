@@ -42,9 +42,14 @@ export default {
                 console.log(result);
                 
                 if (result.body.status === 0) {
-                    // this.comments = this.comments.concat(result.body.message);
+                    if (this.pageIndex === 1) {
+                        this.comments = result.body.message;
+                    }else {
+
+                        this.comments = this.comments.concat(result.body.message);
+                    }
                     // this.comments = this.comments.push.apply(null,result.body.message);有错误
-                    this.comments = [...this.comments,...result.body.message]
+                    // this.comments = [...this.comments,...result.body.message]
                 }else {
                     Toast("获取失败")
                 }
@@ -60,7 +65,9 @@ export default {
                 if (result.body.status === 0) {
                     Toast("提交成功");
                     this.sendComment = '';
-                    // this.getComments();
+                    // console.log(this.comments);
+                    this.pageIndex = 1;
+                    this.getComments();
                 }else {
                     Toast("提交失败")
                     this.sendComment = '';
