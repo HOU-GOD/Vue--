@@ -46,9 +46,9 @@ export default {
                         this.comments = result.body.message;
                     }else {
 
-                        this.comments = this.comments.concat(result.body.message);
+                     this.comments.push.apply(this.comments,result.body.message) ;//有错误
+                        // this.comments = this.comments.concat(result.body.message);
                     }
-                    // this.comments = this.comments.push.apply(null,result.body.message);有错误
                     // this.comments = [...this.comments,...result.body.message]
                 }else {
                     Toast("获取失败")
