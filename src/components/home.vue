@@ -63,7 +63,7 @@ export default {
 <style lang="scss" scoped>
 .mint-swipe {
   height: 200px;
-  margin-top: 40px;
+  // margin-top: 40px;
 
   .mint-swipe-item {
     &:nth-child(1) {
