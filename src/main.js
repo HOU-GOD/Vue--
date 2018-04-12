@@ -25,6 +25,29 @@ import VueResource from "vue-resource";
 Vue.use(VueResource);
 //设置请求的根路径
 Vue.http.options.root = 'http://vue.studyit.io';
+Vue.http.options.emulateJSON = true;
+
+
+// 导入axios组件
+import axios from "axios";
+import qs from "qs";
+// 手动将axios绑定到Vue原型中, 以供其他组件内部可以使用axios
+Vue.prototype.$axios = axios;
+Vue.prototype.$qs = qs;
+axios.defaults.baseURL = 'http://vue.studyit.io';
+
+// 设置全局的请求根域名
+axios.defaults.baseURL = 'http://vue.studyit.io/';
+// 通过设置请求拦截器 配置post参数序列化
+axios.interceptors.request.use(function (config) {
+  // 统一处理post请求的参数 为application/x-www-form-urlencode
+  if (config.method == 'post') {
+    config.data = qs.stringify(config.data)
+  }
+  return config;
+});
+
+
 
 // 导入mui样式
 import './lib/mui/css/mui.css';
@@ -32,7 +55,6 @@ import './lib/mui/css/mui.css';
 import './lib/mui/css/icons-extra.css';
 
 Vue.config.productionTip = false
-Vue.http.options.emulateJSON = true;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

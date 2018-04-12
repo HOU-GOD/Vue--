@@ -5,7 +5,7 @@
         <textarea placeholder="该BB时就BB(最多120个字)" maxlength="120" v-model="sendComment"></textarea>
         <mt-button type="primary" size="large" @click="setcomment">发表BB</mt-button>
         <div class="cmt-list">
-      <div class="cmt-item" v-for="(item, i) in comments" :key="item.add_time">
+      <div class="cmt-item" v-for="(item, i) in comments" :key="i">
         <div class="cmt-title">
           第{{ i+1 }}楼&nbsp;&nbsp;用户：{{ item.user_name }}&nbsp;&nbsp;发表时间：{{ item.add_time | dateFormat }}
         </div>
@@ -58,11 +58,12 @@ export default {
         //点击提交
         setcomment(){
             // console.log(this.sendComment);
-            this.$http.post("api/postcomment/"+this.id,{
+            this.$axios.post("api/postcomment/"+this.id,{
                 artid:this.id,
                 content:this.sendComment
             }).then(result=>{
-                if (result.body.status === 0) {
+                // console.log(result);
+                if (result.data.status === 0) {
                     Toast("提交成功");
                     this.sendComment = '';
                     // console.log(this.comments);
