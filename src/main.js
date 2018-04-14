@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'; // 导入vue模块
 import App from './App'; // 导入初始的App.vue文件
-import router from './router'; // 导入路由文件
+import router from './router'; // 导入路由文件index.js
 
 // 导入并注册mint-ui 的Swipe, SwipeItem组件
 // 按需导入 Mint-UI 中的组件   
@@ -24,7 +24,7 @@ Vue.filter('dateFormat',function (data) {
 import VueResource from "vue-resource";
 Vue.use(VueResource);
 //设置请求的根路径
-Vue.http.options.root = 'http://vue.studyit.io';
+Vue.http.options.root = 'http://www.lovegf.cn:8899';
 Vue.http.options.emulateJSON = true;
 
 
@@ -34,10 +34,10 @@ import qs from "qs";
 // 手动将axios绑定到Vue原型中, 以供其他组件内部可以使用axios
 Vue.prototype.$axios = axios;
 Vue.prototype.$qs = qs;
-axios.defaults.baseURL = 'http://vue.studyit.io';
+axios.defaults.baseURL = 'http://www.lovegf.cn:8899';
 
 // 设置全局的请求根域名
-axios.defaults.baseURL = 'http://vue.studyit.io/';
+axios.defaults.baseURL = 'http://www.lovegf.cn:8899';
 // 通过设置请求拦截器 配置post参数序列化
 axios.interceptors.request.use(function (config) {
   // 统一处理post请求的参数 为application/x-www-form-urlencode
@@ -47,6 +47,10 @@ axios.interceptors.request.use(function (config) {
   return config;
 });
 
+
+// 导入 图片预览插件
+import Vuepreview from "vue-preview";
+Vue.use(Vuepreview)
 
 
 // 导入mui样式

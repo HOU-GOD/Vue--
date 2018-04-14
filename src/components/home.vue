@@ -1,12 +1,6 @@
 <template>
 <div>
-  <!-- 轮播图区域 -->
-    <mt-swipe :auto="4000">
-      <!-- 在组件中，使用v-for循环的话，一定要使用 key -->
-      <mt-swipe-item v-for="item in lunbotu" :key="item.length">
-        <img :src="item.img" alt="">
-      </mt-swipe-item>
-    </mt-swipe>
+    <lunbo :lunbotu="lunbotu" :isfull="true"></lunbo>
     <ul class="mui-table-view mui-grid-view mui-grid-9">
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link href="#" to="/home/NewList">
               <img src="../../images/menu1.png" alt="">
@@ -14,9 +8,9 @@
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link href="#" to="/home/photos">
               <img src="../../images/menu2.png" alt="">
               <div class="mui-media-body">图片分享</div></router-link></li>
-      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+      <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><router-link href="#" to="/home/goodslist">
               <img src="../../images/menu3.png" alt="">
-              <div class="mui-media-body">商品购买</div></a></li>
+              <div class="mui-media-body">商品购买</div></router-link></li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
               <img src="../../images/menu4.png" alt="">
               <div class="mui-media-body">留言反馈</div></a></li>
@@ -32,6 +26,7 @@
 
 <script>
 import { Toast } from "mint-ui";
+import lunbo from "./comment/swiper.vue"
 export default {
   data() {
     return {
@@ -45,7 +40,7 @@ export default {
     getLunbotu() {
       this.$http.get("api/getlunbo").then(result => {
         if (result.body.status === 0) {
-          console.log(result);
+          // console.log(result);
 
           // 成功
           this.lunbotu = result.body.message;
@@ -55,33 +50,14 @@ export default {
         }
       });
     }
-  }
+  },
+  components:{lunbo}
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.mint-swipe {
-  height: 200px;
-  // margin-top: 40px;
 
-  .mint-swipe-item {
-    &:nth-child(1) {
-      background-color: red;
-    }
-    &:nth-child(2) {
-      background-color: blue;
-    }
-    &:nth-child(3) {
-      background-color: cyan;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
 .mui-grid-view.mui-grid-9 {
   background-color: #fff;
   border: none;

@@ -39,14 +39,14 @@ export default {
         // 获取数据
         getComments(){
             this.$http.get("api/getcomments/" + this.id + "?pageindex=" + this.pageIndex).then(result=>{
-                console.log(result);
+                // console.log(result);
                 
                 if (result.body.status === 0) {
                     if (this.pageIndex === 1) {
                         this.comments = result.body.message;
                     }else {
 
-                     this.comments.push.apply(this.comments,result.body.message) ;//有错误
+                     this.comments.push.apply(this.comments,result.body.message) ;
                         // this.comments = this.comments.concat(result.body.message);
                     }
                     // this.comments = [...this.comments,...result.body.message]
@@ -82,7 +82,7 @@ export default {
             this.getComments();
         }
     },
-    props:['id']
+    props:['id']//接收父组件传入的id值
 }
 </script>
 
