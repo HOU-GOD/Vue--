@@ -10,6 +10,7 @@
   ],
   "plugins": ["transform-vue-jsx", "transform-runtime"],
   "ignore": [
-    "./src/lib/mui/js/mui.min.js"
+    "./src/lib/mui/js/mui.js"
+
   ]
 }

@@ -26,7 +26,7 @@
 
 <script>
 // 导入mui的js文件
-import mui from "../../lib/mui/js/mui.min.js";
+import mui from "../../lib/mui/js/mui.js";
 export default {
   data() {
     return {
