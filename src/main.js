@@ -8,6 +8,7 @@ import router from './router'; // 导入路由文件index.js
 // 按需导入 Mint-UI 中的组件   
 import mintui from 'mint-ui'
 Vue.use(mintui);
+
 // 导入css
 import 'mint-ui/lib/style.css';
 
@@ -50,7 +51,58 @@ axios.interceptors.request.use(function (config) {
 
 // 导入 图片预览插件
 import Vuepreview from "vue-preview";
-Vue.use(Vuepreview)
+Vue.use(Vuepreview);
+
+
+
+// 导入Vuex
+import Vuex from "vuex";
+// 注册vuex到vue中
+Vue.use(Vuex);
+// 存储到本地的localStorage
+var car = JSON.parse(localStorage.getItem('car')||'[]')
+// new Vuex.Store()  实例, 得到一个数据仓储对象
+var store = new Vuex.Store({
+  state:{
+    car: car
+  },
+  mutations:{
+    addToCar(state,goodsinfo){//添加购物车
+      // 点击加入购物车, 把商品信息, 保存到store中的car上
+      // 分析:
+      // 1. 如果购物车中, 之前就已经有这个对应的商品了, 那么, 只需要更新数量
+      // 2. 如果没有, 则直接把商品数据, push到car中即可
+
+
+      // 假设 在购物车中没有找到对应的商品
+      var flag = false;
+      state.car.some(item=>{
+        if (item.id == goodsinfo.id) {// 如果找的到id一致的修改flag, 直接数量累加
+          item.count +=parseInt(goodsinfo.count);
+          flag = true;
+          return true;
+        }
+      })
+      if (!flag) {//找不到id一致的就push
+        state.car.push(goodsinfo);
+        // console.log(state.car);
+        
+      }
+      localStorage.setItem('car',JSON.stringify(state.car))
+    },
+    
+  },
+  getters:{
+    getAllCount(state){
+      var c = 0;
+      state.car.forEach(item=>{
+        c += item.count;
+      })
+      return c
+    }
+  }
+})
+
 
 
 // 导入mui样式
@@ -58,11 +110,13 @@ import './lib/mui/css/mui.css';
 // 导入字体图标扩展文件
 import './lib/mui/css/icons-extra.css';
 
+
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

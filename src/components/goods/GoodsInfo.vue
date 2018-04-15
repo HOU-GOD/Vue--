@@ -59,7 +59,7 @@ export default {
             lunbotu: [], // 轮播图图片数据
             goodsinfo:{}, //商品信息
             ballFlag: false, //控制初始球的显示和隐藏
-            num1:1
+            num1:1 //
         }
     },
     created(){
@@ -93,8 +93,17 @@ export default {
             this.$router.push({name:"goodscomment",params:{id}})
         },
         // 动画函数
-        addToShopCar(){
+        addToShopCar(){ //点击添加购物车开始动画, 调用在Vuex中的数据方法
             this.ballFlag = !this.ballFlag;
+            //自定义一个商品信息对象, 以便购物车页面展示使用
+            //{id:商品,count:要购买的数量,price:商品的单价,selected:false 是否勾选结账用}
+            var goodsinfo = {
+                id:this.id,
+                count:this.num1,
+                price:this.goodsinfo.sell_price,
+                selected:true
+            }
+            this.$store.commit("addToCar",goodsinfo);
         },
         beforeEnter(el){
             el.style.transform = "translate(0,0)"
@@ -119,7 +128,7 @@ export default {
             this.ballFlag = !this.ballFlag;
         },
         countnum(num){
-            console.log(num);
+            console.log(num,111111);
             this.num1 = num;
         }
     },
