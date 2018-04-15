@@ -72,8 +72,6 @@ var store = new Vuex.Store({
       // 分析:
       // 1. 如果购物车中, 之前就已经有这个对应的商品了, 那么, 只需要更新数量
       // 2. 如果没有, 则直接把商品数据, push到car中即可
-
-
       // 假设 在购物车中没有找到对应的商品
       var flag = false;
       state.car.some(item=>{
