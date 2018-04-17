@@ -66,7 +66,7 @@ var store = new Vuex.Store({
   state:{
     car: car
   },
-  mutations:{
+  mutations:{ // this.$store.commit('方法的名称','按需传入的唯一的参数')
     addToCar(state,goodsinfo){//添加购物车
       // 点击加入购物车, 把商品信息, 保存到store中的car上
       // 分析:
@@ -88,15 +88,74 @@ var store = new Vuex.Store({
       }
       localStorage.setItem('car',JSON.stringify(state.car))
     },
-    
+    updataGoodsInfo(state, goodsinfo){
+      // 修改购物车页面的数量
+      // 分析: 当修改完商品的数量, 把最新的购物车数据, 保存到
+      // 本地存储中
+      // console.log(123);
+      state.car.some(item=>{
+        // console.log(item);
+        if (item.id == goodsinfo.id) {
+          item.count = parseInt(goodsinfo.count);
+          return true;
+        }
+      })
+      localStorage.setItem('car',JSON.stringify(state.car))
+    },
+    updateSelected(state,selected){ // 修改点击按钮时商品中的selected状态
+      state.car.some(item=>{
+        if (item.id == selected.id) {
+          item.selected = selected.selected
+        }
+      })
+      localStorage.setItem('car', JSON.stringify(state.car))
+    },
+    removeCar(state,id){
+      state.car.some((item,i)=>{
+        if (item.id == id) {
+          state.car.splice(i,1)
+          return true;
+        }
+      })
+      // 更新localStorage中的数据
+      localStorage.setItem('car',JSON.stringify(state.car))
+    }
   },
-  getters:{
-    getAllCount(state){
+  getters: { // this.$store.getters.方法名  返回一个指定的值(对象或者字符串...)
+    // 相当于 计算属性，也相当于 filters
+    getAllCount(state){ // 获取所有商品数量的总和
       var c = 0;
       state.car.forEach(item=>{
         c += item.count;
       })
       return c
+    },
+    getGoodsSelected(state){ //获取购物车所有商品的选中信息
+      var o = {}; // 定义一个对象 方便页面调用,比如{10:true,88:false}
+      state.car.forEach(item=>{
+        o[item.id] = item.selected
+      })
+      return o;
+    },
+    getGoodsCount(state){ //获取所有的商品数量
+      var b = {};
+      state.car.forEach(item=>{
+        b[item.id] = item.count
+      })
+      return b;
+    },
+    getGoodsCountAndAmount(state){
+      var m = {
+        count: 0, // 勾选的数量
+        amount: 0 // 勾选的总价
+      }
+      state.car.forEach(item=>{
+        if (item.selected) {
+          m.count += item.count;
+          m.amount += item.price * item.count;
+        }
+      })
+      return m;
     }
   }
 })
